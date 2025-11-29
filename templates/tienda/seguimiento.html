@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Seguimiento</h2>
+<form method="post" class="mb-3">
+    {% csrf_token %}
+    <input name="token_buscado" class="form-control" placeholder="Pega tu token aquí...">
+</form>
+{% if pedido %}
+    <h3>Estado: {{ pedido.get_estado_display }}</h3>
+    <p>Cliente: {{ pedido.cliente_nombre }}</p>
+{% endif %}
+{% endblock %}

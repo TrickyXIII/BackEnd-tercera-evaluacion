@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Solicitud</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="nombre" placeholder="Nombre" class="form-control mb-2" required>
+    <input type="text" name="contacto" placeholder="Contacto" class="form-control mb-2" required>
+    <textarea name="descripcion" placeholder="Detalles" class="form-control mb-2"></textarea>
+    <input type="date" name="fecha" class="form-control mb-2">
+    <input type="file" name="imagen" class="form-control mb-3">
+    <button class="btn btn-success">Enviar</button>
+</form>
+{% endblock %}
