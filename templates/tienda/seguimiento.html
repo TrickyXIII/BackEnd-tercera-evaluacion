@@ -1,12 +1,70 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h2>Seguimiento</h2>
-<form method="post" class="mb-3">
-    {% csrf_token %}
-    <input name="token_buscado" class="form-control" placeholder="Pega tu token aquí...">
-</form>
-{% if pedido %}
-    <h3>Estado: {{ pedido.get_estado_display }}</h3>
-    <p>Cliente: {{ pedido.cliente_nombre }}</p>
-{% endif %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4 text-center">Seguimiento de Pedido</h2>
+        
+        <form method="post" class="mb-5 d-flex gap-2">
+            {% csrf_token %}
+            <input name="token_buscado" class="form-control" placeholder="Ingrese su código de seguimiento (Token)" required>
+            <button class="btn btn-primary">Buscar</button>
+        </form>
+
+        {% if pedido %}
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Pedido #{{ pedido.id }}</h4>
+            </div>
+            <div class="card-body">
+                
+                <div class="row mb-4">
+                    <div class="col-md-6 text-center border-end">
+                        <h5 class="text-muted">Estado del Pedido</h5>
+                        <h2 class="text-primary">{{ pedido.get_estado_display }}</h2>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h5 class="text-muted">Estado de Pago</h5>
+                        <h2 class="{% if pedido.pago == 'pagado' %}text-success{% else %}text-danger{% endif %}">
+                            {{ pedido.get_pago_display }}
+                        </h2>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5 class="card-title mt-4">Detalles de la Solicitud</h5>
+                <dl class="row">
+                    <dt class="col-sm-4">Cliente:</dt>
+                    <dd class="col-sm-8">{{ pedido.cliente_nombre }}</dd>
+
+                    <dt class="col-sm-4">Producto Base:</dt>
+                    <dd class="col-sm-8">{{ pedido.producto_ref.nombre|default:"Pedido Personalizado" }}</dd>
+
+                    <dt class="col-sm-4">Descripción:</dt>
+                    <dd class="col-sm-8">{{ pedido.descripcion }}</dd>
+
+                    {% if pedido.fecha_necesaria %}
+                    <dt class="col-sm-4">Fecha Necesaria:</dt>
+                    <dd class="col-sm-8 text-danger fw-bold">{{ pedido.fecha_necesaria }}</dd>
+                    {% endif %}
+                </dl>
+
+                {% if pedido.imagen_referencia %}
+                <div class="mt-4">
+                    <h5 class="card-title">Imagen de Referencia Enviada</h5>
+                    <img src="{{ pedido.imagen_referencia.url }}" class="img-fluid rounded border p-1" style="max-height: 300px;">
+                </div>
+                {% endif %}
+
+            </div>
+            <div class="card-footer text-muted text-center">
+                <small>Token: {{ pedido.token }}</small>
+            </div>
+        </div>
+        {% elif request.method == 'POST' %}
+            <div class="alert alert-danger">No se encontró ningún pedido con ese código.</div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
