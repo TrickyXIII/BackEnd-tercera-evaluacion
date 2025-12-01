@@ -8,7 +8,17 @@ class PedidoAdmin(admin.ModelAdmin):
     readonly_fields = ('token',) # no se toca
     ordering = ('-fecha_solicitud',)
 
-admin.site.register(Insumo)
+class ProductoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'categoria', 'precio_base', 'destacado')
+    list_filter = ('categoria', 'destacado')
+    search_fields = ('nombre', 'descripcion')
+
+class InsumoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'tipo', 'cantidad', 'marca', 'color')
+    list_filter = ('tipo',)
+    search_fields = ('nombre', 'marca')
+
+admin.site.register(Insumo, InsumoAdmin)
 admin.site.register(Categoria)
-admin.site.register(Producto)
+admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Pedido, PedidoAdmin)
