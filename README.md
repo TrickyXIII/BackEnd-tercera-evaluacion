@@ -8,33 +8,49 @@
 * Sistema de seguimiento usando un código único.
 * Panel de administración para gestionar insumos, productos y pedidos.
 
-## Cómo instalar y ejecutar
+# Cómo instalar y ejecutar
 
-1. Clona este repositorio:
+## 1. Clona este repositorio:
 
+Bash
 git clone https://github.com/TrickyXIII/BackEnd-tercera-evaluacion
 
-2. Crea y activa tu entorno virtual:
+## 2. Entrar a la carpeta:
+
+[Bash]
+cd BackEnd-tercera-evaluacion
+
+## 3. Crea y activa tu entorno virtual:
 
 python -m venv venv
 
-3. Instalar lo necesario:
+### Si usas Git Bash
+source venv/Scripts/activate
+
+### Si usas Windows:
+venv\Scripts\activate
+
+### Si usas Mac/Linux:
+source venv/bin/activate
+
+## 4. Instalar lo necesario:
 
 pip install -r requirements.txt
 
-4. Preparar la base de datos:
+## 5. Preparar la base de datos:
 
 python manage.py migrate
 
-5. Enciende el servidor:
+## 6. Enciende el servidor:
+
 python manage.py runserver
 
 
-## Datos de acceso:
+# Datos de acceso:
 
-Página principal: https://www.google.com/search?q=http://127.0.0.1:8000/
+Página principal: http://127.0.0.1:8000/
 
-Admin: https://www.google.com/search?q=http://127.0.0.1:8000/admin/
+Admin: http://127.0.0.1:8000/admin/
 
 Usuario: admin
 
