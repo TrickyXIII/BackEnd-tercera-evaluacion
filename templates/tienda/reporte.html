@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-center">Reporte de Pedidos</h2>
+<div style="width: 60%; margin: auto;">
+    <canvas id="myChart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  new Chart(document.getElementById('myChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ labels|safe }},
+      datasets: [{ label: 'Cantidad', data: {{ values|safe }}, borderWidth: 1 }]
+    }
+  });
+</script>
+{% endblock %}
