@@ -109,7 +109,21 @@ def filtrar_pedidos(request):
 # --- REPORTE ---
 @login_required
 def reporte(request):
-    data = Pedido.objects.values('estado').annotate(total=Count('id'))
+    fecha_inicio = request.GET.get('fecha_inicio')
+    fecha_fin = request.GET.get('fecha_fin')
+
+    consulta = Pedido.objects.all()
+
+    if fecha_inicio and fecha_fin:
+        consulta = consulta.filter(fecha_solicitud__date__range=[fecha_inicio, fecha_fin])
+
+    data = consulta.values('estado').annotate(total=Count('id'))
+    
     labels = [d['estado'] for d in data]
     values = [d['total'] for d in data]
-    return render(request, 'tienda/reporte.html', {'labels': labels, 'values': values})
+
+    return render(request, 'tienda/reporte.html', {
+        'labels': labels, 
+        'values': values,
+        'data_tabla': data 
+    })
