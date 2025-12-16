@@ -16,8 +16,8 @@ urlpatterns = [
     path('pedido/', views.crear_pedido, name='crear_pedido_general'),
     path('pedido/<int:producto_id>/', views.crear_pedido, name='crear_pedido'),
     path('seguimiento/', views.seguimiento, name='seguimiento_home'),
-    path('seguimiento/<uuid:token>/', views.seguimiento, name='seguimiento_url'),
-    path('api/', include(router.urls)),
-    path('api/pedidos/filtrar/', views.filtrar_pedidos),
+    path('seguimiento/<uuid:token>/', views.seguimiento, name='seguimiento_url'), 
+    path('api/pedidos/filtrar/', views.filtrar_pedidos), 
+    path('api/', include(router.urls)),                  
     path('reporte/', views.reporte, name='reporte'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
