@@ -72,8 +72,8 @@ class Pedido(models.Model):
 
     # VALIDACIÓN DEL PAGO
     def clean(self):
-        if self.estado in ['entregada', 'realizada'] and self.pago == 'pendiente':
-            raise ValidationError('No se puede finalizar/entregar un pedido si el pago está pendiente.')
+        if self.estado in ['finalizada'] and self.pago == 'pendiente':
+            raise ValidationError('No se puede finalizar un pedido si el pago está pendiente.')
 
     def save(self, *args, **kwargs):
         self.full_clean() # Llama a la validación antes de guardar
